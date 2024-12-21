@@ -1,0 +1,19 @@
+{
+    "languageserver" : {
+        "ccls" : {
+            "command":"ccls",
+            "args" : ["--log-file=/tmp/ccls.log", "-v=1"],
+            "filetypes": ["c", "cc", "cpp", "h", "hpp"],
+            "rootPatterns": [".ccls", "compile_commands.json"],
+            "initializationOptions":{
+                "cache":{
+                    "directory":"/tmp/ccls"
+                },
+                "client":{
+                    "snippetSupport":true
+                }
+            }
+        }
+    },
+    "clangd.path": "~/.config/coc/extensions/coc-clangd-data/install/18.1.3/clangd_18.1.3/bin/clangd"
+}
