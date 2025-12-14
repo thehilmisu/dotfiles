@@ -3,9 +3,10 @@ filetype plugin indent on
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set t_Co=256
 set guifont=Iosevka
-set guioptions-=m
-set guioptions-=T
+" set guioptions-=m
+" set guioptions-=T
 set noesckeys
 " set relativenumber
 set number
@@ -18,11 +19,28 @@ set iminsert=0
 set imsearch=0
 set autoindent
 set autochdir
+set wildmenu
 " Highlight matching brace
 set showmatch
 set hlsearch
 set cursorline
 colorscheme habamax
+
+" ctrl+} -> goes to definition, ctrl+n autocompletes
+set omnifunc=ccomplete#Complete
+" set tags=$HOME/.vim/mlx.tags,$HOME/.vim/gm_cpd.tags
+set tags=C:\\Users\\worhozca\\.vim\\mlx.tags,C:\\Users\\worhozca\\.vim\\gm_cpd.tags
+
+function Gitbranch()
+    return trim(system("git -C " . expand("%:h") . " branch --show-current 2>NUL"))
+endfunction
+
+augroup Gitget
+    autocmd!
+    autocmd BufEnter * let b:git_branch = Gitbranch()
+augroup END
+
+set laststatus=2
 
 " Move Line Up
 nnoremap <C-Up> ddkP
@@ -39,3 +57,17 @@ nnoremap <C-p> :Ve <CR>
 inoremap <C-p> <ESC> :Ve <CR>
 vnoremap <C-p> <ESC> :Ve <CR>
 
+" ESC will clear the search results highligthing
+nnoremap <ESC> :noh <CR><ESC>
+
+" Search for the visually selected text
+vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+
+" Search and replace text -> :s/<pattern>/<replacement>
+" Search and replace text in the entire file -> :%s/<pattern>/<replacement>
+" Search and replace text in the current line -> :s/<pattern>/<replacement>/g
+" For example, this command will replace all the occurrences of the strings
+" "email" and "login" with the string "credentials" in the entire file:
+"
+" :%s/email\|login/credentials
