@@ -4,7 +4,6 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set t_Co=256
-set guifont=Iosevka
 " set guioptions-=m
 " set guioptions-=T
 set noesckeys
@@ -24,7 +23,7 @@ set wildmenu
 set showmatch
 set hlsearch
 set cursorline
-colorscheme habamax
+colorscheme HKNGruberDarker
 
 " ctrl+} -> goes to definition, ctrl+n autocompletes
 set omnifunc=ccomplete#Complete
@@ -52,6 +51,7 @@ nnoremap <C-Down> ddp
 inoremap <C-Down> <ESC> ddp ==gi
 vnoremap <C-Down> :m '>+1<CR>gv=gv
 
+
 " Open New Window Se, Ve, Te (S : Split Horizontal, V : Split Vertical, T: Tab)
 nnoremap <C-p> :Ve <CR>
 inoremap <C-p> <ESC> :Ve <CR>
@@ -60,9 +60,16 @@ vnoremap <C-p> <ESC> :Ve <CR>
 " ESC will clear the search results highligthing
 nnoremap <ESC> :noh <CR><ESC>
 
+" :vimgrep <pattern> <directory>. when results are found, :cnext and :cprev
+nnoremap <C-n> :cnext <CR>
+nnoremap <C-m> :cprev <CR>
+
 " Search for the visually selected text
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 
+if !has('gui_running')
+  set t_Co=256
+endif
 
 " Search and replace text -> :s/<pattern>/<replacement>
 " Search and replace text in the entire file -> :%s/<pattern>/<replacement>
@@ -71,3 +78,7 @@ vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
 " "email" and "login" with the string "credentials" in the entire file:
 "
 " :%s/email\|login/credentials
+
+let g:lightline = {
+          \ 'colorscheme': 'wombat',
+          \ }
